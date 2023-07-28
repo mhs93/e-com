@@ -1,7 +1,5 @@
 @extends('admin.master')
-
-@section('category_create')
-
+@section('admin_dashboard')
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -17,12 +15,11 @@
         <div class="box span12">
             <div class="box-header" data-original-title>
                 <h2><i class="halflings-icon edit"></i><span class="break"></span>Add Category</h2>
-
             </div>
 
             <div class="box-content">
-                <form class="form-horizontal" action="" method="post">
-
+                <form class="form-horizontal" action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <fieldset>
                         <div class="control-group">
                             <label class="control-label" for="date01">Category Name</label>
@@ -53,10 +50,9 @@
                         </div>
                     </fieldset>
                 </form>
-
             </div>
+
         </div><!--/span-->
-    </div><!--/row-->
     </div><!--/row-->
 
 @endsection
