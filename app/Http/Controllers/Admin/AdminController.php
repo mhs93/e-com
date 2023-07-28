@@ -16,7 +16,18 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $this->loginCheck();
         return view('admin.admin_login');
+    }
+
+    public function loginCheck()
+    {
+        $login = Session::get('id');
+        if ($login){
+            return redirect()->route('dashboard')->send();
+        }else{
+            return;
+        }
     }
 
     public function showDashboard(Request $request)

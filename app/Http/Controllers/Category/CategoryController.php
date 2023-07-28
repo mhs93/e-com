@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -28,7 +29,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->name;
+        $category->description = $request->description;
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time().'.'.$extension;
+            $file->move('category',$fileName);
+            $category->image = $fileName;
+        }
+        $category->save();
+
+        return redirect()->route('categories.index');
     }
 
     /**
