@@ -13,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        dd('hello');
+        $categories = Category::all();
+        return view('category.index',compact('categories'));
     }
 
     /**
@@ -32,6 +33,7 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request->name;
         $category->description = $request->description;
+//        $category->image = $request->image->store('category');
         if ($request->hasFile('image')){
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
@@ -41,7 +43,18 @@ class CategoryController extends Controller
         }
         $category->save();
 
-        return redirect()->route('categories.index');
+//        return redirect()->route('categories.index');
+        return redirect()->back();
+    }
+
+    public function statusChange(Category $category)
+    {
+        if($category->status == 1){
+            $category->update(['status' => 0]);
+        }else{
+            $category->update(['status' => 1]);
+        }
+        return back()->with('message','Status updated successfully');
     }
 
     /**

@@ -14,6 +14,15 @@
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header" data-original-title>
+                <p>
+                    <?php
+                        $message = Session::get('messsage');
+                        if ($message){
+                            echo $message;
+                            $message = Session::put('message', null);
+                        }
+                    ?>
+                </p>
                 <h2><i class="halflings-icon edit"></i><span class="break"></span>Add Category</h2>
             </div>
 
