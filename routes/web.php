@@ -27,3 +27,4 @@ Route::get('logout',[SuperAdminController::class,'logout'])->name('logout');
 
 
 Route::resource('categories',CategoryController::class);
+Route::get('catStatusUpdate/{category}',[CategoryController::class,'statusChange'])->name('catStatusUpdate');
